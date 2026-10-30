@@ -2,46 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="light" />
-  <title>OpenNet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#070b14" />
+  <title>Dashboard</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%234285f4' width='32' height='32' rx='6'/%3E%3C/svg%3E" id="favicon" />
   <link rel="stylesheet" href="/styles.css" />
   <script src="/baremux/index.js"></script>
   <script src="/uv/uv.bundle.js"></script>
   <script src="/uv/uv.config.js"></script>
 </head>
 <body>
-  <div class="sky" aria-hidden="true"></div>
-  <header class="top">
-    <a class="brand" href="/">OpenNet</a>
-  </header>
+  <canvas id="particles" aria-hidden="true"></canvas>
 
-  <main class="hero" id="home">
-    <h1 class="logo">OpenNet</h1>
-    <p class="tag">Search or open any site. Built for Chromebooks — Discord, YouTube, and normal pages load through Ultraviolet.</p>
+  <div id="home" class="home">
+    <nav class="nav">
+      <div class="nav-brand">OpenNet</div>
+      <div class="nav-links">
+        <button type="button" id="btn-cloak" class="ghost">Tab cloak</button>
+        <button type="button" id="btn-fullscreen-pref" class="ghost" title="Open sites as full page">Classic</button>
+      </div>
+    </nav>
 
-    <form id="uv-form" class="search" autocomplete="off">
-      <input id="uv-search-engine" type="hidden" value="https://duckduckgo.com/?q=%s" />
-      <label class="sr" for="uv-address">Search or URL</label>
-      <input id="uv-address" type="text" placeholder="Search or paste a URL…" autofocus enterkeyhint="go" spellcheck="false" />
-      <button type="submit">Go</button>
-    </form>
+    <section class="portal">
+      <p class="eyebrow">Ultraviolet proxy</p>
+      <h1>OpenNet</h1>
+      <p class="sub">Search the web or open any site through the proxy.</p>
 
-    <p id="uv-error" class="err"></p>
-    <pre id="uv-error-code" class="err-code"></pre>
-    <p class="hint">First open can take a few seconds while the service worker installs. Bookmark this page.</p>
-  </main>
+      <form id="uv-form" class="omnibar" autocomplete="off">
+        <input id="uv-search-engine" type="hidden" value="https://www.google.com/search?q=%s" />
+        <svg class="search-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input id="uv-address" type="text" placeholder="Search Google or type a URL" autofocus enterkeyhint="go" spellcheck="false" />
+        <button type="submit">Search</button>
+      </form>
 
-  <div id="browser" class="browser" hidden>
-    <div class="bar">
-      <button type="button" id="btn-home" title="Home">Home</button>
-      <button type="button" id="btn-reload" title="Reload">Reload</button>
-      <input id="omnibox" type="text" readonly />
-      <a class="brand-mini" href="/">OpenNet</a>
-    </div>
-    <iframe id="uv-frame" title="Proxied site"></iframe>
+      <p id="uv-error" class="err"></p>
+      <pre id="uv-error-code" class="err-code"></pre>
+
+      <div class="apps" aria-label="Quick apps">
+        <button type="button" class="app" data-url="https://www.youtube.com">
+          <span class="app-ico yt">▶</span>
+          <span>YouTube</span>
+        </button>
+        <button type="button" class="app" data-url="https://discord.com/app">
+          <span class="app-ico dc">D</span>
+          <span>Discord</span>
+        </button>
+        <button type="button" class="app" data-url="https://www.google.com">
+          <span class="app-ico gg">G</span>
+          <span>Google</span>
+        </button>
+        <button type="button" class="app" data-url="https://www.reddit.com">
+          <span class="app-ico rd">R</span>
+          <span>Reddit</span>
+        </button>
+        <button type="button" class="app" data-url="https://www.tiktok.com">
+          <span class="app-ico tt">T</span>
+          <span>TikTok</span>
+        </button>
+        <button type="button" class="app" data-url="https://open.spotify.com">
+          <span class="app-ico sp">S</span>
+          <span>Spotify</span>
+        </button>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>Stealth frame · service worker · Wisp</span>
+    </footer>
   </div>
 
+  <div id="browser" class="browser" hidden>
+    <div class="chrome">
+      <div class="traffic">
+        <button type="button" id="btn-back" title="Back" aria-label="Back">‹</button>
+        <button type="button" id="btn-forward" title="Forward" aria-label="Forward">›</button>
+        <button type="button" id="btn-reload" title="Reload" aria-label="Reload">↻</button>
+        <button type="button" id="btn-home" title="Home" aria-label="Home">⌂</button>
+      </div>
+      <form id="chrome-form" class="chrome-url">
+        <input id="omnibox" type="text" spellcheck="false" enterkeyhint="go" />
+      </form>
+      <button type="button" id="btn-popout" class="chrome-extra" title="Open as full page">↗</button>
+    </div>
+    <div id="loader" class="loader" hidden>
+      <div class="spinner"></div>
+      <p>Loading through OpenNet…</p>
+    </div>
+    <iframe id="uv-frame" title="Proxied site" allow="fullscreen; clipboard-read; clipboard-write; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+  </div>
+
+  <dialog id="cloak-dialog">
+    <form method="dialog" id="cloak-form" class="cloak-panel">
+      <h2>Tab cloak</h2>
+      <p>Make this tab look like a school site.</p>
+      <label>Preset
+        <select id="cloak-preset">
+          <option value="classroom">Google Classroom</option>
+          <option value="drive">Google Drive</option>
+          <option value="docs">Google Docs</option>
+          <option value="canvas">Canvas</option>
+          <option value="none">None (OpenNet)</option>
+        </select>
+      </label>
+      <div class="cloak-actions">
+        <button type="submit" value="cancel" class="ghost">Cancel</button>
+        <button type="submit" value="ok">Apply</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/particles.js"></script>
   <script src="/register-sw.js"></script>
   <script src="/search.js"></script>
   <script src="/app.js"></script>

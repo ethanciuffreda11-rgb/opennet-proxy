@@ -3,17 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OpenNet — not found</title>
+  <title>Dashboard</title>
   <link rel="stylesheet" href="/styles.css" />
   <script src="/uv/uv.bundle.js"></script>
   <script src="/uv/uv.config.js"></script>
 </head>
-<body class="hero">
-  <h1 class="logo" style="font-size:2.4rem">Page not ready</h1>
-  <p class="tag" id="uv-error">If you were opening a site, the service worker may not be registered yet.</p>
-  <pre class="err-code" id="uv-error-code"></pre>
-  <p><button id="uv-register-sw" type="button" class="search" style="display:inline-flex;padding:0.7rem 1rem;cursor:pointer;border:0;border-radius:12px;background:#1f6b4a;color:#fff;font-weight:700">Register &amp; retry</button></p>
-  <p><a class="brand" href="/">Back to OpenNet</a></p>
+<body style="overflow:auto">
+  <main class="portal" style="padding:4rem 1rem">
+    <h1 style="font-size:2.4rem">Almost there</h1>
+    <p class="sub" id="uv-error">If a site failed to open, register the service worker and try again.</p>
+    <pre class="err-code" id="uv-error-code"></pre>
+    <p style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+      <button id="uv-register-sw" type="button" class="omnibar" style="display:inline-flex;padding:0.75rem 1.2rem;cursor:pointer;border:0;border-radius:999px;background:linear-gradient(135deg,#3ec7ff,#5b8cff);color:#041018;font-weight:700">Register &amp; retry</button>
+      <a class="ghost" href="/" style="display:inline-flex;align-items:center;text-decoration:none">Home</a>
+    </p>
+  </main>
   <script src="/register-sw.js"></script>
   <script src="/error.js"></script>
 </body>
