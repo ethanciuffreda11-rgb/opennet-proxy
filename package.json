@@ -1,0 +1,19 @@
+{
+  "name": "school-web-proxy",
+  "version": "1.0.0",
+  "description": "Browser-based web proxy for Render — works on school Chromebooks with no install",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "http-proxy-middleware": "^3.0.3",
+    "node-html-parser": "^6.1.13",
+    "undici": "^6.21.0"
+  }
+}
