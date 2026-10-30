@@ -2,10 +2,16 @@ services:
   - type: web
     name: opennet-proxy
     runtime: node
+    repo: https://github.com/ethanciuffreda11-rgb/opennet-proxy
+    branch: master
     plan: free
+    region: oregon
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /health
+    autoDeployTrigger: commit
     envVars:
       - key: NODE_VERSION
         value: "20"
+      - key: NODE_ENV
+        value: production
