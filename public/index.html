@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light" />
-  <title>OpenNet — School Web Proxy</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,500;0,9..40,700;1,9..40,500&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet" />
+  <title>OpenNet</title>
   <link rel="stylesheet" href="/styles.css" />
+  <script src="/baremux/index.js"></script>
+  <script src="/uv/uv.bundle.js"></script>
+  <script src="/uv/uv.config.js"></script>
 </head>
 <body>
   <div class="sky" aria-hidden="true"></div>
@@ -16,35 +16,34 @@
     <a class="brand" href="/">OpenNet</a>
   </header>
 
-  <main class="hero">
+  <main class="hero" id="home">
     <h1 class="logo">OpenNet</h1>
-    <p class="tag">Search or open any site through this proxy — works in a normal school browser tab. No install.</p>
+    <p class="tag">Search or open any site. Built for Chromebooks — Discord, YouTube, and normal pages load through Ultraviolet.</p>
 
-    <form class="search" action="/go" method="get" autocomplete="off">
-      <label class="sr" for="q">Search or URL</label>
-      <input
-        id="q"
-        name="q"
-        type="search"
-        placeholder="Search the web or paste a URL…"
-        autofocus
-        enterkeyhint="go"
-        spellcheck="false"
-      />
+    <form id="uv-form" class="search" autocomplete="off">
+      <input id="uv-search-engine" type="hidden" value="https://duckduckgo.com/?q=%s" />
+      <label class="sr" for="uv-address">Search or URL</label>
+      <input id="uv-address" type="text" placeholder="Search or paste a URL…" autofocus enterkeyhint="go" spellcheck="false" />
       <button type="submit">Go</button>
     </form>
 
-    <p class="hint">Tip: bookmark this page on your Chromebook so you can open it even if the home link is filtered later.</p>
+    <p id="uv-error" class="err"></p>
+    <pre id="uv-error-code" class="err-code"></pre>
+    <p class="hint">First open can take a few seconds while the service worker installs. Bookmark this page.</p>
   </main>
 
-  <section class="notes">
-    <h2>Made for school devices</h2>
-    <ul>
-      <li>Runs entirely in the browser — no apps or extensions to install (Chromebooks / managed laptops OK).</li>
-      <li>Uses HTTPS on Render so many school networks will load this host.</li>
-      <li>Pages are fetched by the proxy server, then shown to you, so filtering on the site’s real domain often doesn’t apply.</li>
-    </ul>
-    <p class="fine">If your school blocks Render or this custom URL, ask for a different hostname or deploy under another free host. Some sites also break when heavily scripted — try a simpler page or search result first.</p>
-  </section>
+  <div id="browser" class="browser" hidden>
+    <div class="bar">
+      <button type="button" id="btn-home" title="Home">Home</button>
+      <button type="button" id="btn-reload" title="Reload">Reload</button>
+      <input id="omnibox" type="text" readonly />
+      <a class="brand-mini" href="/">OpenNet</a>
+    </div>
+    <iframe id="uv-frame" title="Proxied site"></iframe>
+  </div>
+
+  <script src="/register-sw.js"></script>
+  <script src="/search.js"></script>
+  <script src="/app.js"></script>
 </body>
 </html>

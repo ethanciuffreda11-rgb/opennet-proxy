@@ -1,37 +1,26 @@
-# OpenNet — school-friendly web proxy (Render)
+# OpenNet — working school web proxy (Ultraviolet)
 
-Browser-only proxy: open the Render URL on a Chromebook or school laptop, search or paste any site, and pages load through your server.
+Uses **Ultraviolet + Epoxy + Wisp** (service-worker proxy). That stack can actually run sites like YouTube and Discord — a plain HTML rewriter cannot.
 
-## Why this works on school devices
+## Live
 
-- **No install** — just a normal HTTPS webpage (Chromebooks / managed browsers OK)
-- **Traffic goes to your Render host** — many filters only block the destination domain, not your proxy hostname
-- **Links & assets rewritten** — navigation, images, CSS, forms, and many XHR/fetch calls stay on the proxy
+https://opennet-proxy.onrender.com
 
-If school blocks `onrender.com` itself, deploy under a custom domain or another host.
-
-## Deploy on Render
-
-1. Push this folder to GitHub
-2. In [Render](https://render.com): **New → Web Service** → connect the repo
-3. Settings:
-   - **Build:** `npm install`
-   - **Start:** `npm start`
-   - **Instance:** Free
-4. Open `https://YOUR-SERVICE.onrender.com` on the school device and bookmark it
-
-Or use Blueprint: connect the repo and apply `render.yaml`.
-
-## Local run
+## Local
 
 ```bash
 npm install
 npm start
 ```
 
-Visit http://localhost:3000
+Open http://localhost:3000 — service workers need HTTPS in production (Render is fine).
+
+## Deploy
+
+Pushes to `master` auto-deploy on Render. Or Blueprint from `render.yaml`.
 
 ## Notes
 
-- Heavy JavaScript apps (some social/video sites) may only partly work — that’s normal for HTML proxies
-- Follow your school’s acceptable-use rules
+- First visit installs a service worker; wait a second before searching
+- Free Render apps sleep when idle — cold start can take ~1 minute
+- Some sites still break; that’s normal for any web proxy

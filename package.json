@@ -1,19 +1,22 @@
 {
-  "name": "school-web-proxy",
-  "version": "1.0.0",
-  "description": "Browser-based web proxy for Render — works on school Chromebooks with no install",
+  "name": "opennet-proxy",
+  "version": "2.0.0",
+  "description": "Working Ultraviolet + Wisp web proxy for school devices on Render",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "dependencies": {
+    "@mercuryworkshop/bare-mux": "^2.1.8",
+    "@mercuryworkshop/epoxy-transport": "^2.1.29",
+    "@mercuryworkshop/wisp-js": "^0.5.1",
+    "@titaniumnetwork-dev/ultraviolet": "^3.2.10",
     "express": "^4.21.2",
-    "http-proxy-middleware": "^3.0.3",
-    "node-html-parser": "^6.1.13",
-    "undici": "^6.21.0"
+    "ws": "^8.19.0"
   }
 }
